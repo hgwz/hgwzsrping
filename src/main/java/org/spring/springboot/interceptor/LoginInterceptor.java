@@ -38,6 +38,10 @@ public class LoginInterceptor implements HandlerInterceptor{
         HttpSession session = request.getSession();
         Cookie[] cookies = request.getCookies();
         Cookie loginCookie = null;
+        if (null == cookies || cookies.length == 0) {
+            response401(response);
+            return false;
+        }
         for(Cookie c:cookies){
             if(c.getName().equals("loginUserId"))
                 loginCookie = (Cookie)c;
