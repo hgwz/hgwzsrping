@@ -37,7 +37,8 @@ public class LoginInterceptor implements HandlerInterceptor{
 
         HttpSession session = request.getSession();
         Cookie[] cookies = request.getCookies();
-        Cookie loginCookie = null;
+        Cookie loginCookie  = null;
+        Cookie SessionCookie  = null;
         if (null == cookies || cookies.length == 0) {
             response401(response);
             return false;
@@ -45,6 +46,8 @@ public class LoginInterceptor implements HandlerInterceptor{
         for(Cookie c:cookies){
             if(c.getName().equals("loginUserId"))
                 loginCookie = (Cookie)c;
+            if(c.getName().equals("JsessionId"))
+                SessionCookie = (Cookie)c;
         }
         if (loginCookie != null)
         {
@@ -52,7 +55,7 @@ public class LoginInterceptor implements HandlerInterceptor{
             {
                 //验证当前请求的session是否是已登录的session
                 String loginSessionId = redisTemplate.opsForValue().get("loginUser:" + loginCookie.getValue());
-                if (loginSessionId != null && loginSessionId.equals(session.getId()))
+                if (loginSessionId != null && loginSessionId.equals(SessionCookie.getValue()))
                 {
                     return true;
                 }
