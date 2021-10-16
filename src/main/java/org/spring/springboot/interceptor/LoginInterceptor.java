@@ -46,7 +46,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         for(Cookie c:cookies){
             if(c.getName().equals("loginUserId"))
                 loginCookie = (Cookie)c;
-            if(c.getName().equals("JsessionId"))
+            if(c.getName().equals("Session"))
                 SessionCookie = (Cookie)c;
         }
         if (loginCookie != null)

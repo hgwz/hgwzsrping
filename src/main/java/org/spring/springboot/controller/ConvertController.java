@@ -9,7 +9,6 @@ import sun.misc.BASE64Decoder;
  */
 @RestController
 public class ConvertController{
-
     @RequestMapping(value = "/api/endcode/{str}", method = RequestMethod.GET)
     public String encoder(@PathVariable("str") String str) {
         return new sun.misc.BASE64Encoder().encode(str.getBytes());
